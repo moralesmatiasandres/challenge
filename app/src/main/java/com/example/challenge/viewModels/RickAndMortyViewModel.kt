@@ -12,7 +12,8 @@ import com.example.challenge.network.responses.Character
 import dagger.hilt.android.lifecycle.HiltViewModel
 
 @HiltViewModel
-class RickAndMortyViewModel @Inject constructor(private val repository: RickAndMortyRepository) : ViewModel(){
+class RickAndMortyViewModel @Inject constructor(private val repository: RickAndMortyRepository)
+    : ViewModel(){
     private val _characters = MutableStateFlow<State<List<Character>>>(State.Loading)
     val characters: StateFlow<State<List<Character>>> = _characters
 
@@ -24,11 +25,15 @@ class RickAndMortyViewModel @Inject constructor(private val repository: RickAndM
         viewModelScope.launch {
             when (val response = repository.fetchCharacters()) {
                 is NetworkRequestHandler.Success -> {
-                    val charactersList = response.data.results  // Accede a la lista de personajes
+                    val charactersList = response.data.results
                     _characters.value = State.Success(charactersList)
                 }
-                is NetworkRequestHandler.Error -> _characters.value = State.Error(response.exception)
-                is NetworkRequestHandler.Failure -> _characters.value = State.Error(response.exception)
+                is NetworkRequestHandler.Error -> {
+                    _characters.value = State.Error(response.exception)
+                }
+                is NetworkRequestHandler.Failure -> {
+                    _characters.value = State.Error(response.exception)
+                }
             }
         }
     }
@@ -37,5 +42,5 @@ class RickAndMortyViewModel @Inject constructor(private val repository: RickAndM
 sealed class State<out T> {
     data class Success<out T>(val data: T) : State<T>()
     data class Error(val exception: Throwable) : State<Nothing>()
-    object Loading : State<Nothing>()
+    data object Loading : State<Nothing>()
 }

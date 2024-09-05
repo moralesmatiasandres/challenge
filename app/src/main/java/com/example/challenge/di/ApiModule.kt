@@ -27,5 +27,4 @@ object ApiModule {
     fun provideService(retrofit: Retrofit): RickAndMortyService {
         return retrofit.create(RickAndMortyService::class.java)
     }
-
 }
