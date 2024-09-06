@@ -12,15 +12,32 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.example.challenge.network.responses.Character
+import com.example.challenge.viewModels.RickAndMortyViewModel
+import com.example.challenge.viewModels.State
 
 @Composable
-fun CharacterDetailScreen(character: Character) {
+fun CharacterDetailScreen(viewModel: RickAndMortyViewModel, characterId: Int) {
+    val charactersState by viewModel.characters.collectAsState()
+    val character = (charactersState as? State.Success)?.characters?.firstOrNull {
+        it.id == characterId
+    }
+
+    character?.let {
+        CharacterDetailContent(character = it)
+    } ?: Text("Character not found")
+}
+
+
+@Composable
+fun CharacterDetailContent(character: Character) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -45,3 +62,4 @@ fun CharacterDetailScreen(character: Character) {
         Text(text = "Species: ${character.species}", style = MaterialTheme.typography.bodyLarge)
     }
 }
+
