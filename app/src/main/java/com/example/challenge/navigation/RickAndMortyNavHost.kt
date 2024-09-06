@@ -32,7 +32,7 @@ fun RickAndMortyNavHost(
         ) { backStackEntry ->
             val characterId = backStackEntry.arguments?.getInt("characterId") ?: 0
             val charactersState by viewModel.characters.collectAsState()
-            val character = (charactersState as? State.Success)?.data?.firstOrNull { it.id == characterId }
+            val character = (charactersState as? State.Success)?.characters?.firstOrNull { it.id == characterId }
             character?.let { CharacterDetailScreen(it) }
         }
 

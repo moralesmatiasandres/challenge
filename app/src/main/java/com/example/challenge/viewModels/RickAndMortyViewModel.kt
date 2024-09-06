@@ -14,8 +14,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 @HiltViewModel
 class RickAndMortyViewModel @Inject constructor(private val repository: RickAndMortyRepository)
     : ViewModel(){
-    private val _characters = MutableStateFlow<State<List<Character>>>(State.Loading)
-    val characters: StateFlow<State<List<Character>>> = _characters
+    private val _characters = MutableStateFlow<State>(State.Loading)
+    val characters: StateFlow<State> = _characters
 
     init {
         fetchCharacters()
@@ -39,8 +39,8 @@ class RickAndMortyViewModel @Inject constructor(private val repository: RickAndM
     }
 }
 
-sealed class State<out T> {
-    data class Success<out T>(val data: T) : State<T>()
-    data class Error(val exception: Throwable) : State<Nothing>()
-    data object Loading : State<Nothing>()
+sealed class State {
+    data class Success(val characters: List<Character>) : State()
+    data class Error(val exception: Throwable) : State()
+    data object Loading : State()
 }
