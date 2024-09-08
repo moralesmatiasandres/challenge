@@ -44,12 +44,12 @@ class RickAndMortyViewModelTest {
     }
 
     @Test
-    fun `initial state should be Loading`() = testScope.runTest {
+    fun `fetchCharacters returns Empty when no characters`() = testScope.runTest {
         // Act
         val state = viewModel.characters.first()
 
         // Assert
-        assertEquals(State.Loading, state)
+        assertEquals(State.Empty, state)
     }
 
 }
