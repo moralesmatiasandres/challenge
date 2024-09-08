@@ -28,6 +28,9 @@ fun CharacterListScreen(viewModel: RickAndMortyViewModel, onCharacterClick: (Cha
         is State.Success -> {
             CharacterList(characters = (charactersState as State.Success).characters, onCharacterClick = onCharacterClick)
         }
+        is State.Empty -> {
+
+        }
         is State.Error -> {
             Text("Error: ${(charactersState as State.Error).exception.message}")
         }
