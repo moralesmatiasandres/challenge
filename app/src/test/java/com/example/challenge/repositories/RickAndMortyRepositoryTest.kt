@@ -29,7 +29,7 @@ class RickAndMortyRepositoryTest {
     @Test
     fun `fetchCharacters returns success with valid data`() = runTest {
         // Arrange
-        val characterResponse = CharacterResponseMockModel.mockCharacterResponse
+        val characterResponse = CharacterResponseMockModel.mockSuccessResponse()
         coEvery { service.getAllCharacters() } returns Response.success(characterResponse)
 
         // Act
@@ -43,7 +43,7 @@ class RickAndMortyRepositoryTest {
     @Test
     fun `fetchCharacters returns success with empty data`() = runTest {
         // Arrange
-        val emptyResponse = CharacterResponseMockModel.mockEmptyCharacterResponse
+        val emptyResponse = CharacterResponseMockModel.mockEmptyResponse()
         coEvery { service.getAllCharacters() } returns Response.success(emptyResponse)
 
         // Act
