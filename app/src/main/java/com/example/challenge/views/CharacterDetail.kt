@@ -45,13 +45,13 @@ fun CharacterDetailContent(character: Character) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Image(
-            painter = rememberAsyncImagePainter(character.image),
+        CustomImage(
+            imageUrl = character.image,
             contentDescription = character.name,
-            modifier = Modifier
-                .size(200.dp)
-                .clip(RoundedCornerShape(16.dp))
+            size = 200.dp,
+            clipShape = RoundedCornerShape(16.dp)
         )
+
         Spacer(modifier = Modifier.height(16.dp))
         Text(text = character.name, style = MaterialTheme.typography.bodyLarge)
         Spacer(modifier = Modifier.height(8.dp))

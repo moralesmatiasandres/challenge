@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,10 +27,11 @@ fun CharacterItem(character: Character, onClick: (Character) -> Unit) {
             .clickable{onClick(character)},
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Image(
-            painter = rememberAsyncImagePainter(character.image),
+        CustomImage(
+            imageUrl = character.image,
             contentDescription = character.name,
-            modifier = Modifier.size(50.dp)
+            size = 50.dp,
+            clipShape = RoundedCornerShape(16.dp)
         )
         Spacer(modifier = Modifier.width(8.dp))
         Text(text = character.name, style = MaterialTheme.typography.bodyLarge)

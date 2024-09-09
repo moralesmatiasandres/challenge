@@ -1,12 +1,11 @@
 package com.example.challenge.di
 
+import com.example.challenge.Retrofit.RetrofitProvider
 import com.example.challenge.network.services.RickAndMortyService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
@@ -15,16 +14,7 @@ object ApiModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit() : Retrofit {
-        return Retrofit.Builder()
-            .baseUrl("https://rickandmortyapi.com/api/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
-
-    @Provides
-    @Singleton
-    fun provideService(retrofit: Retrofit): RickAndMortyService {
-        return retrofit.create(RickAndMortyService::class.java)
+    fun provideService(): RickAndMortyService {
+        return RetrofitProvider.retrofit.create(RickAndMortyService::class.java)
     }
 }
